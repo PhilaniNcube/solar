@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "../ui/select";
+import SolarConfiguration from "./solar-config";
 
 const RoofSections = ({
   segments,
@@ -127,8 +128,8 @@ const RoofSections = ({
             </div>
           </div>
         </div>
-
       </div>
+      {/* <SolarConfiguration solarConfig={solarConfig} /> */}
     </section>
   );
 };

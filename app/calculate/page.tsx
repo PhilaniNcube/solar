@@ -2,6 +2,7 @@ import Potential from "@/components/calculate-page/Potential";
 import RoofSections from "@/components/calculate-page/roof-sections";
 import { DataResponse, DataResponseError, DatalayerError } from "@/interfaces";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 const page = async ({
   searchParams: { lat, lng, address },
@@ -35,8 +36,13 @@ const page = async ({
 
   return (
     <main className="flex flex-col items-center justify-center">
+      <Suspense fallback={`...Loading`}>
       <Potential solarData={solar} address={address} />
-      <RoofSections segments={solar.solarPotential.roofSegmentStats} solarConfig={solar.solarPotential.solarPanelConfigs} />
+        <RoofSections
+          segments={solar.solarPotential.roofSegmentStats}
+          solarConfig={solar.solarPotential.solarPanelConfigs}
+        />
+      </Suspense>
     </main>
   );
 };

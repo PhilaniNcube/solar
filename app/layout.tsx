@@ -2,8 +2,8 @@ import './globals.css'
 
 
 export const metadata = {
-  title: 'Next.js and Supabase Starter Kit',
-  description: 'The fastest way to build apps with Next.js and Supabase',
+  title: 'Solar Potential',
+  description: 'Get some information about your home&apos;s solar potential',
 }
 
 export default function RootLayout({
@@ -14,8 +14,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-background text-foreground">
-
-
         {children}
       </body>
     </html>
