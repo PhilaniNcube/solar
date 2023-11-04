@@ -6,10 +6,12 @@ import { kv } from '@vercel/kv';
 const ratelimit = new Ratelimit({
   redis: kv,
   // 5 requests from the same IP in 10 seconds
-  limiter: Ratelimit.slidingWindow(5, '5 s'),
+  limiter: Ratelimit.slidingWindow(15, '60 s'),
 });
 
-
+export const config = {
+  matcher: ['/', '/calculate'],
+};
 
 
 export async function middleware(request: NextRequest) {
@@ -74,6 +76,7 @@ export async function middleware(request: NextRequest) {
   const { success, pending, limit, reset, remaining } = await ratelimit.limit(
     ip
   );
+  console.log({ success, limit, reset, remaining })
   return success
     ? NextResponse.next()
     : NextResponse.redirect(new URL('/blocked', request.url));
