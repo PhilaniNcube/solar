@@ -9,7 +9,7 @@ const page = async ({
   searchParams: { lat: string; lng: string; address: string };
 }) => {
 
-  console.log({lat, lng, address})
+
 
    const url = new URL(
      `https://solar.googleapis.com/v1/buildingInsights:findClosest?key=${process.env.NEXT_PUBLIC_MAPS_API_KEY}`
@@ -27,7 +27,7 @@ const page = async ({
 
     const solar: DataResponse  = await res;
 
-    console.log({solar})
+
 
       if (solar.name === undefined) {
         redirect(`/error?address=${address}`);

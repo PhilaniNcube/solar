@@ -1,5 +1,16 @@
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { Ratelimit } from '@upstash/ratelimit';
+import { kv } from '@vercel/kv';
+
+const ratelimit = new Ratelimit({
+  redis: kv,
+  // 5 requests from the same IP in 10 seconds
+  limiter: Ratelimit.slidingWindow(5, '5 s'),
+});
+
+
+
 
 export async function middleware(request: NextRequest) {
   // Create an unmodified response
@@ -57,13 +68,15 @@ export async function middleware(request: NextRequest) {
       }
     )
 
-    // Refresh session if expired - required for Server Components
-    // https://supabase.com/docs/guides/auth/auth-helpers/nextjs#managing-session-with-middleware
     await supabase.auth.getSession()
 
-    // If the session was refreshed, the request and response cookies will have been updated
-    // If the session was not refreshed, the request and response cookies will be unchanged
-    return response
+      const ip = request.ip ?? '127.0.0.1';
+  const { success, pending, limit, reset, remaining } = await ratelimit.limit(
+    ip
+  );
+  return success
+    ? NextResponse.next()
+    : NextResponse.redirect(new URL('/blocked', request.url));
   } catch (e) {
     // If you are here, a Supabase client could not be created!
     // This is likely because you have not set up environment variables.
