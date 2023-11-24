@@ -79,11 +79,21 @@ const { data: lead, error } = await supabase
        results: data.results,
        status: data.status,
        lead_id: lead?.id
-      }]).select("*")
+      }]).select("*").single()
 
       console.log({addressResults, addressError})
 
-      redirect(`/calculate?lat=${data.results[0].geometry.location.lat}&lng=${data.results[0].geometry.location.lng}&address=${data.results[0].formatted_address}`)
+      if(addressError) {
+        throw new Error("Could not save address")
+      }
+
+      if(!addressResults) {
+        throw new Error("Could not save address")
+      }
+
+      redirect(`/calculate/${addressResults.id}`)
+
+      // redirect(`/calculate?lat=${data.results[0].geometry.location.lat}&lng=${data.results[0].geometry.location.lng}&address=${data.results[0].formatted_address}`)
 
   }
 

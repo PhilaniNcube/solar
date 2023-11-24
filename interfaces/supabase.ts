@@ -13,7 +13,7 @@ export interface Database {
         Row: {
           created_at: string
           id: string
-          lead_id: string
+          lead_id: Database["public"]['Tables']["leads"]["Row"]
           results: {
     address_components: {
       long_name: string;
