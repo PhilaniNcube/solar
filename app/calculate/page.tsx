@@ -10,6 +10,8 @@ const page = async ({
   searchParams: { lat: string; lng: string; address: string };
 }) => {
 
+  const coords = { lat: Number(lat), lng: Number(lng) };
+
 
 
    const url = new URL(
@@ -35,14 +37,8 @@ const page = async ({
       }
 
   return (
-    <main className="flex flex-col items-center justify-center">
-      <Suspense fallback={`...Loading`}>
-      <Potential solarData={solar} address={address} />
-        <RoofSections
-          segments={solar.solarPotential.roofSegmentStats}
-          solarConfig={solar.solarPotential.solarPanelConfigs}
-        />
-      </Suspense>
+    <main className="py-10 container">
+      <Potential coords={coords} address={address} solarData={solar} />
     </main>
   );
 };

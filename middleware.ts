@@ -2,6 +2,7 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 import { Ratelimit } from '@upstash/ratelimit';
 import { kv } from '@vercel/kv';
+import { Database } from './interfaces/supabase';
 
 const ratelimit = new Ratelimit({
   redis: kv,
@@ -24,7 +25,7 @@ export async function middleware(request: NextRequest) {
 
   try {
     // Create a Supabase client configured to use cookies
-    const supabase = createServerClient(
+    const supabase = createServerClient<Database>(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {

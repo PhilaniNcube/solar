@@ -1,21 +1,55 @@
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { GeocodingResponse } from "@/interfaces";
+import { Battery, BatteryChargingIcon, Grid3X3, Home, Link2OffIcon, PlusIcon, UtilityPole } from "lucide-react";
 
 const AddressForm = async () => {
 
   const saveAddress = async (formData:FormData) => {
     "use server"
+
+     const name = formData.get("name") as string;
+     const phone = formData.get("phone") as string;
+     const address = formData.get("address") as string;
+     const email = formData.get("email") as string;
+     const installation = formData.get("installation") as string;
+     const electricity_bill = formData.get("electricity-bill") as string;
+
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
 
+    console.log(typeof electricity_bill);
 
-    const address = formData.get("address")
-    const email = formData.get("email")
+    console.log({electricity_bill, name, phone, address, email, installation})
+
+    if(typeof electricity_bill !== "string" || typeof name !== "string" || typeof phone !== "string" || typeof address !== "string" || typeof email !== "string" || typeof installation !== "string") {
+      throw new Error("Invalid data")
+    }
+
+
+
+const { data: lead, error } = await supabase
+  .from("leads")
+  .insert([
+    {
+      name,
+      email,
+      phone,
+      address,
+      electricity_bill: Number(electricity_bill),
+      installation,
+    },
+  ])
+  .select("*").single();
+
+  console.log({lead, error})
+
 
 
      let encodedAddress;
@@ -41,49 +75,161 @@ const AddressForm = async () => {
 
       const data: GeocodingResponse = await response;
 
+      const {data:addressResults, error:addressError} = await supabase.from("geocoding").insert([{
+       results: data.results,
+       status: data.status,
+       lead_id: lead?.id
+      }]).select("*")
+
+      console.log({addressResults, addressError})
+
       redirect(`/calculate?lat=${data.results[0].geometry.location.lat}&lng=${data.results[0].geometry.location.lng}&address=${data.results[0].formatted_address}`)
 
   }
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32">
-      <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6 lg:gap-10">
-        <div className="space-y-3">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-            Solar Power Potential
-          </h2>
-          <p className="mx-auto max-w-[700px] text-zinc-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-zinc-400">
-            Enter your address to check out the potential of your home for solar
-            power generation.
+    <div className="grid grid-cols-2 gap-6 max-w-5xl mx-auto">
+      <div className="space-y-6">
+        <div className="space-y-2">
+          <h1 className="text-3xl font-bold">Solar Installations Lead Form</h1>
+          <p className="text-zinc-500 dark:text-zinc-400">
+            Please enter your information and we'll contact you as soon as
+            possible.
           </p>
         </div>
-        <form
-          action={saveAddress}
-          className="w-full max-w-md mx-auto space-y-4"
-        >
-          <Label
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300"
-            htmlFor="address"
-          >
-            Street Address
-          </Label>
-          <Input
-            className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            id="address"
-            name="address"
-            required
-            type="text"
-          />
-          <Button
-            className="w-full py-2 px-4 rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none"
-            type="submit"
-            variant="default"
-          >
-            Calculate
+        <form action={saveAddress} className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="name">Name</Label>
+            <Input
+              id="name"
+              name="name"
+              placeholder="Enter your name"
+              type="text"
+              required
+            />
+            <Label htmlFor="email">Email</Label>
+            <Input
+              id="email"
+              name="email"
+              placeholder="Enter your email"
+              required
+              type="email"
+            />
+            <Label htmlFor="phone">Phone Number</Label>
+            <Input
+              id="phone"
+              name="phone"
+              placeholder="Enter your phone number"
+              required
+              type="tel"
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="address">Address</Label>
+            <Input
+              id="address"
+              name="address"
+              placeholder="Enter your address"
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="electricity-bill">Monthly Electricity Bill</Label>
+            <Input
+              id="electricity-bill"
+              name="electricity-bill"
+              // placeholder="Enter your address"
+              required
+              type="number"
+
+            />
+          </div>
+          <div className="space-y-2">
+            <Label>
+              What type of solar installation are you interested in?
+            </Label>
+            <RadioGroup
+              name="installation"
+              defaultValue="solar"
+              className="grid grid-cols-3 gap-4"
+            >
+              <div>
+                <RadioGroupItem
+                  value="solar"
+                  id="solar"
+                  className="peer sr-only"
+                />
+                <Label
+                  htmlFor="solar"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                >
+                  <span className="flex space-x-2">
+                    <Grid3X3 className="mb-3 h-6 w-6" />
+                    <PlusIcon className="mb-3 h-6 w-6" />
+                    <UtilityPole className="mb-3 h-6 w-6" />
+                  </span>
+                  Solar Panels
+                </Label>
+              </div>
+              <div>
+                <RadioGroupItem
+                  value="hybrid"
+                  id="hybrid"
+                  className="peer sr-only"
+                />
+                <Label
+                  htmlFor="hybrid"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                >
+                  <span className="flex space-x-2">
+                    <UtilityPole className="mb-3 h-6 w-6" />
+                    <PlusIcon className="mb-3 h-6 w-6" />
+                    <Grid3X3 className="mb-3 h-6 w-6" />
+                    <BatteryChargingIcon className="mb-3 h-6 w-6 -rotate-90" />
+                  </span>
+                  Hybrid Solar
+                </Label>
+              </div>
+              <div>
+                <RadioGroupItem
+                  value="off-grid"
+                  id="off-grid"
+                  className="peer sr-only"
+                />
+                <Label
+                  htmlFor="off-grid"
+                  className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
+                >
+                  <span className="flex space-x-2">
+                    <Grid3X3 className="mb-3 h-6 w-6" />
+                    <PlusIcon className="mb-3 h-6 w-6" />
+                    <BatteryChargingIcon className="mb-3 h-6 w-6 -rotate-90" />
+                    <BatteryChargingIcon className="mb-3 h-6 w-6 -rotate-90" />
+                  </span>
+                  Full Off Grid
+                </Label>
+              </div>
+            </RadioGroup>
+          </div>
+          <Button className="w-full" type="submit">
+            Submit
           </Button>
         </form>
       </div>
-    </section>
+      <div>
+        <img
+          alt="Solar Installations"
+          className="object-cover w-full h-full rounded-md shadow-md"
+          height="500"
+          src="/images/home.png"
+          style={{
+            aspectRatio: "600/500",
+            objectFit: "cover",
+          }}
+          width="600"
+        />
+      </div>
+    </div>
   );
 };
 export default AddressForm;

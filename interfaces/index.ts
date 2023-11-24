@@ -63,6 +63,17 @@ export type RoofSegment =  {
       }[];
     }
 
+    export type BoundingBox = {
+        sw: {
+          latitude: number;
+          longitude: number;
+        };
+        ne: {
+          latitude: number;
+          longitude: number;
+        };
+      };
+
 
 
 export type DataResponse = {
