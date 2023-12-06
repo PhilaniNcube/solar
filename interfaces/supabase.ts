@@ -141,6 +141,35 @@ export interface Database {
         }
         Relationships: []
       }
+      solar_panels: {
+        Row: {
+          created_at: string
+          id: number
+          name: string
+          output: number
+          width: number
+          height: number
+          depth: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name: string
+          output: number
+          width: number
+          height: number
+          depth: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name: string
+          output: number
+          width: number
+          height: number
+          depth: number
+        }
+      }
       leads: {
         Row: {
           address: string

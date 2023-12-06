@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { GeocodingResponse } from "@/interfaces";
 import { Battery, BatteryChargingIcon, Grid3X3, Home, Link2OffIcon, PlusIcon, UtilityPole } from "lucide-react";
+import SubmitButton from "../submit-button";
 
 const AddressForm = async () => {
 
@@ -221,9 +222,9 @@ const { data: lead, error } = await supabase
               </div>
             </RadioGroup>
           </div>
-          <Button className="w-full" type="submit">
+          <SubmitButton>
             Submit
-          </Button>
+          </SubmitButton>
         </form>
       </div>
       <div>
