@@ -128,17 +128,19 @@ const RoofSegments = ({
         </Select>
       </div>{" "}
       <Separator className="my-3" />
-      <h3>
+      <h3 className="text-3xl font-bold my-6">
         This configuration would provide a total of{" "}
-        {configs[selectedConfigIndex].yearlyEnergyDcKwh.toFixed(2)} kWh/year
-        kWh/year from {configs[selectedConfigIndex].panelsCount} solar panels.
+        {(configs[selectedConfigIndex].yearlyEnergyDcKwh / 365).toFixed(2)}{" "}
+        kWh/day from {configs[selectedConfigIndex].panelsCount} solar
+        panels.
       </h3>
+      <Separator className="my-3" />
       <div className="grid grid-cols-2 gap-8">
         {configs[selectedConfigIndex].roofSegmentSummaries.map(
           (item, index) => (
             <div className="w-full rounded-lg bg-white p-4">
               <h3 className="text-2xl my-2 font-semibold">
-                Output {item.yearlyEnergyDcKwh.toFixed(2)} kWh/year
+                Output {(item.yearlyEnergyDcKwh / 365).toFixed(2)} kWh/day
               </h3>{" "}
               <p className="text-lg font-medium flex items-center space-x-2">
                 Panels: {item.panelsCount}
