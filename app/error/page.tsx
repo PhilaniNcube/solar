@@ -21,24 +21,9 @@ export default function Component() {
           </div>
         </div>
         <div className="mx-auto grid max-w-sm items-start gap-8 sm:max-w-4xl">
-          <div className="grid gap-1 items-center justify-center max-w-md bg-white mx-auto">
-            <svg
-              className=" h-16 w-16 text-red-500 mb-2"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" x2="12" y1="8" y2="12" />
-              <line x1="12" x2="12.01" y1="16" y2="16" />
-            </svg>
-            <h3 className="text-lg font-bold">Error</h3>
+          <div className="grid gap-1 items-center justify-center max-w-md bg-white text-center mx-auto">
+
+            <h3 className="text-lg font-bold">Most likely the address you provided is not yet covered and solar information has not yet been gathered for that address.</h3>
             <p className="text-sm text-zinc-500 dark:text-zinc-400">
               Please check the address and try again.
             </p>

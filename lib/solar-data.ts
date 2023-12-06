@@ -1,6 +1,7 @@
 // write a function to fetch solar data from the Google Solar API
 
-import { DataResponse } from "@/interfaces"
+import { DataResponse, DatalayerError } from "@/interfaces"
+import { redirect } from "next/navigation";
 
 async function getSolarData(lat:number, lng:number) {
 
@@ -12,16 +13,21 @@ async function getSolarData(lat:number, lng:number) {
     url.searchParams.append("location.longitude", lng.toString());
 
     try {
-
       const response = await fetch(url.toString());
       const data = await response.json();
-      return data as DataResponse;
+
+      if(data?.error) {
+        throw new Error(data.error.message);
+      }
+
+
+      return data as DataResponse
+
+
+
 
     } catch (error) {
-
-
-     throw new Error("Error fetching solar data");
-
+       redirect('/error')
     }
 
 }

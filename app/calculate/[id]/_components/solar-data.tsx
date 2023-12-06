@@ -5,6 +5,7 @@ import { createClient } from "@/utils/supabase/server";
 import { HomeIcon, Link, LockKeyhole, ShieldQuestion } from "lucide-react";
 import { cookies } from "next/headers";
 import RoofSegments from "./roof-segments";
+import { redirect } from "next/navigation";
 
 type SolarDataProps = {
   lat: number;
@@ -18,10 +19,19 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
 
    const {data:solarpanels, error} = await supabase.from("solar_panels").select('*').order("output", {ascending: true});
 
-  const solarData = await getSolarData(lat, lng);
 
 
-  const {imageryQuality,regionCode,solarPotential,center,boundingBox,name,imageryDate,imageryProcessedDate} = solarData;
+     const solarData = await getSolarData(lat, lng);
+     const {
+       imageryQuality,
+       regionCode,
+       solarPotential,
+       center,
+       boundingBox,
+       name,
+       imageryDate,
+       imageryProcessedDate,
+     } = solarData;
 
 
 

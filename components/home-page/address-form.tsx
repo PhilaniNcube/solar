@@ -96,7 +96,7 @@ const { data: lead, error } = await supabase
   }
 
   return (
-    <div className="grid grid-cols-2 gap-6 max-w-5xl mx-auto">
+    <div className="grid grid-cols-2 gap-6 py-10 mx-auto">
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold">Solar Installations Lead Form</h1>
