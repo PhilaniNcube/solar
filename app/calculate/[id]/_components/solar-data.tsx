@@ -23,19 +23,21 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
 
   const {imageryQuality,regionCode,solarPotential,center,boundingBox,name,imageryDate,imageryProcessedDate} = solarData;
 
-  const solarOutputRatio = solarpanels !== null ? solarpanels[0].output / solarPotential.panelCapacityWatts : 1
+
 
   return (
     <section className="py-6">
       <div className="col-span-5 bg-slate-300 min-h-[600px] rounded-lg p-2 lg:p-8 shadow-lg">
-
         <p className="font-medium text-slate-800">
           How many solar panels configurations are available at this address?{" "}
           {solarPotential.solarPanelConfigs.length}{" "}
         </p>
         <RoofSegments
+          panelWidth={solarPotential.panelWidthMeters}
+          panelHeight={solarPotential.panelHeightMeters}
+          solarCapacity={solarPotential.panelCapacityWatts}
           roofSegments={solarPotential.roofSegmentStats}
-          solarPanels={solarPotential.solarPanels}
+          solarPanels={solarpanels!}
           configs={solarPotential.solarPanelConfigs}
         />
       </div>
