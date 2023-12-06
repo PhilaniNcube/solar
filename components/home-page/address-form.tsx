@@ -25,9 +25,6 @@ const AddressForm = async () => {
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
 
-    console.log(typeof electricity_bill);
-
-    console.log({electricity_bill, name, phone, address, email, installation})
 
     if(typeof electricity_bill !== "string" || typeof name !== "string" || typeof phone !== "string" || typeof address !== "string" || typeof email !== "string" || typeof installation !== "string") {
       throw new Error("Invalid data")
@@ -68,7 +65,7 @@ const { data: lead, error } = await supabase
      const response = await fetch(gecodingUrl)
        .then((res) => res.json())
        .then((data) => data)
-       .catch((err) => console.log(err));
+       .catch((err) => console.error(err));
 
       if (!response || response.status === "ZERO_RESULTS") {
         throw new Error("Could not find location for the specified address.");
@@ -82,7 +79,7 @@ const { data: lead, error } = await supabase
        lead_id: lead?.id
       }]).select("*").single()
 
-      console.log({addressResults, addressError})
+
 
       if(addressError) {
         throw new Error("Could not save address")

@@ -10,7 +10,7 @@ const page = async ({params:{id}}:{params:{id:string}}) => {
 
  const {data, error} = await supabase.from("geocoding").select("*, lead_id!inner(*)").eq("id", id).single();
 
- console.log({data, error})
+
 
  if(error) {
  redirect(`/error`);

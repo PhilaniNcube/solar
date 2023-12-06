@@ -26,7 +26,7 @@ const page = async ({
   })
     .then((res) => res.json())
     .then((data) => data)
-    .catch((err) => console.log("Seems we have an error", err));
+    .catch((err) => console.error("Seems we have an error", err));
 
     const solar: DataResponse  = await res;
 

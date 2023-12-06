@@ -77,7 +77,7 @@ export async function middleware(request: NextRequest) {
   const { success, pending, limit, reset, remaining } = await ratelimit.limit(
     ip
   );
-  console.log({ success, limit, reset, remaining })
+
   return success
     ? NextResponse.next()
     : NextResponse.redirect(new URL('/blocked', request.url));

@@ -19,7 +19,7 @@ async function getSolarData(lat:number, lng:number) {
 
     } catch (error) {
 
-      console.log(error);
+
      throw new Error("Error fetching solar data");
 
     }

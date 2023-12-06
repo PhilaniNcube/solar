@@ -14,7 +14,7 @@ const Map = () => {
   const lat = searchParams.get("lat") || 40.7484405;
   const lng = searchParams.get("lng") || -73.9878531;
 
-  console.log(lat, lng)
+
 
     const { isLoaded, loadError } = useLoadScript({
       googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY!,
