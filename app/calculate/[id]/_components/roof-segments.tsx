@@ -115,30 +115,6 @@ const RoofSegments = ({
       <Separator className="my-3" />
       <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
-          <Label className="py-3">Select Solar Panel Array Area</Label>
-          <Select
-            onValueChange={(value) => setSelectedConfigIndex(Number(value))}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Solar Panel Array Size" />
-            </SelectTrigger>
-            <SelectContent>
-              <ScrollArea className="h-[400px] w-full">
-                {configs.map((config, index) => (
-                  <SelectItem
-                    onChange={() => setSelectedConfigIndex(Number(index))}
-                    key={index}
-                    value={index.toString()}
-                  >
-                    {(panelHeight * panelWidth * config.panelsCount).toFixed(2)}{" "}
-                    m<sup>2</sup>
-                  </SelectItem>
-                ))}
-              </ScrollArea>
-            </SelectContent>
-          </Select>
-        </div>
-        <div>
           <Label className="py-3">Select Solar Panel Brand</Label>
           <Select
             onValueChange={(value) => setSelectedPanelsIndex(Number(value))}
@@ -155,6 +131,37 @@ const RoofSegments = ({
                     value={index.toString()}
                   >
                     {panels.name}
+                  </SelectItem>
+                ))}
+              </ScrollArea>
+            </SelectContent>
+          </Select>
+        </div>{" "}
+        <div>
+          <Label className="py-3">Select Solar Panel Array Area</Label>
+          <Select
+            onValueChange={(value) => setSelectedConfigIndex(Number(value))}
+          >
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Solar Panel Array Size" />
+            </SelectTrigger>
+            <SelectContent>
+              <ScrollArea className="h-[400px] w-full">
+                {configs.map((config, index) => (
+                  <SelectItem
+                    onChange={() => setSelectedConfigIndex(Number(index))}
+                    key={index}
+                    value={index.toString()}
+                  >
+                    {(panelHeight * panelWidth * config.panelsCount).toFixed(2)}
+                    {""}m<sup>2</sup> {"~"} approx{" "}
+                    {Math.ceil(
+                      (panelHeight * panelWidth * config.panelsCount) /
+                        ((solarPanels[selectedPanelsIndex].height *
+                          solarPanels[selectedPanelsIndex].width) /
+                          1000000)
+                    )}{" "}
+                    solar panels
                   </SelectItem>
                 ))}
               </ScrollArea>
