@@ -4,6 +4,7 @@ import formatArea from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
 import { HomeIcon, Link, LockKeyhole, ShieldQuestion } from "lucide-react";
 import { cookies } from "next/headers";
+import RoofSegments from "./roof-segments";
 
 type SolarDataProps = {
   lat: number;
@@ -23,14 +24,6 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
   const {imageryQuality,regionCode,solarPotential,center,boundingBox,name,imageryDate,imageryProcessedDate} = solarData;
 
   const solarOutputRatio = solarpanels !== null ? solarpanels[0].output / solarPotential.panelCapacityWatts : 1
-
-
-
-// 1. Display the total roof area in square meters
-// 2. Calculate the maximum number of solar panels based on the max area for solar panels
-//3. Calculate the ratio of the solar panel output based on more powerful solar panels on the market
-
-
 
   return (
     <section className="container py-6">
@@ -56,11 +49,13 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
                 <ShieldQuestion className="h-8 w-8 text-gray-500 dark:text-gray-400" />
                 <div>
                   <CardTitle className="text-lg font-bold text-gray-900 dark:text-gray-100">
-                     Solar Output
+                    Solar Output
                   </CardTitle>
                   <CardDescription className="text-gray-500 dark:text-gray-400">
-                    {(solarPotential.solarPanelConfigs[0].yearlyEnergyDcKwh *
-                      solarOutputRatio).toFixed(2)}{" "}
+                    {(
+                      solarPotential.solarPanelConfigs[0].yearlyEnergyDcKwh *
+                      solarOutputRatio
+                    ).toFixed(2)}{" "}
                     kWh
                   </CardDescription>
                 </div>
@@ -93,6 +88,16 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
               </div>
             </Card>
           </div>
+        </div>
+        <div className="col-span-4 bg-slate-300 min-h-[600px] rounded-lg p-8 shadow-lg">
+          {/*  */}
+          <p className="font-medium text-slate-800">
+            How many solar panels configurations are available at this address?{" "}
+            {solarPotential.solarPanelConfigs.length}{" "}
+          </p>
+          <RoofSegments roofSegments={solarPotential.roofSegmentStats} solarPanels={solarPotential.solarPanels} configs={solarPotential.solarPanelConfigs} />
+
+
         </div>
       </div>
     </section>
