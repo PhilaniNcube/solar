@@ -105,7 +105,7 @@ const RoofSegments = ({
         ))}
       </div> */}
       <Separator className="my-3" />
-      <div className="w-full grid grid-cols-2 gap-4">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4">
         <Select
           onValueChange={(value) => setSelectedConfigIndex(Number(value))}
         >
@@ -128,17 +128,17 @@ const RoofSegments = ({
         </Select>
       </div>{" "}
       <Separator className="my-3" />
-      <h3 className="text-3xl font-bold my-6">
+      <h3 className="text-lg md:text-3xl font-bold my-6">
         This configuration would provide a total of{" "}
         {(configs[selectedConfigIndex].yearlyEnergyDcKwh / 365).toFixed(2)}{" "}
         kWh/day from {configs[selectedConfigIndex].panelsCount} solar
         panels.
       </h3>
       <Separator className="my-3" />
-      <div className="grid grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {configs[selectedConfigIndex].roofSegmentSummaries.map(
           (item, index) => (
-            <div className="w-full rounded-lg bg-white p-4">
+            <div key={index} className="w-full rounded-lg bg-white p-4">
               <h3 className="text-2xl my-2 font-semibold">
                 Output {(item.yearlyEnergyDcKwh / 365).toFixed(2)} kWh/day
               </h3>{" "}

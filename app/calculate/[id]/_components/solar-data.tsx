@@ -26,19 +26,18 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
   const solarOutputRatio = solarpanels !== null ? solarpanels[0].output / solarPotential.panelCapacityWatts : 1
 
   return (
-    <section className="container py-6">
-      <div className="grid grid-cols-5 gap-4">
+    <section className="py-6">
+      <div className="col-span-5 bg-slate-300 min-h-[600px] rounded-lg p-2 lg:p-8 shadow-lg">
 
-        <div className="col-span-5 bg-slate-300 min-h-[600px] rounded-lg p-8 shadow-lg">
-          {/*  */}
-          <p className="font-medium text-slate-800">
-            How many solar panels configurations are available at this address?{" "}
-            {solarPotential.solarPanelConfigs.length}{" "}
-          </p>
-          <RoofSegments roofSegments={solarPotential.roofSegmentStats} solarPanels={solarPotential.solarPanels} configs={solarPotential.solarPanelConfigs} />
-
-
-        </div>
+        <p className="font-medium text-slate-800">
+          How many solar panels configurations are available at this address?{" "}
+          {solarPotential.solarPanelConfigs.length}{" "}
+        </p>
+        <RoofSegments
+          roofSegments={solarPotential.roofSegmentStats}
+          solarPanels={solarPotential.solarPanels}
+          configs={solarPotential.solarPanelConfigs}
+        />
       </div>
     </section>
   );
