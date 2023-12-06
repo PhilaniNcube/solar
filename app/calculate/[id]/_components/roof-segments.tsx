@@ -120,7 +120,7 @@ const RoofSegments = ({
             onValueChange={(value) => setSelectedConfigIndex(Number(value))}
           >
             <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select Solar Output" />
+              <SelectValue placeholder="Solar Panel Array Size" />
             </SelectTrigger>
             <SelectContent>
               <ScrollArea className="h-[400px] w-full">
