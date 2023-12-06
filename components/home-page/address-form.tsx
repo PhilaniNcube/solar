@@ -99,10 +99,11 @@ const { data: lead, error } = await supabase
     <div className="grid grid-cols-2 gap-6 py-10 mx-auto">
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold">Solar Installations Lead Form</h1>
+          <h1 className="text-3xl font-bold">Radiant Potential</h1>
           <p className="text-zinc-500 dark:text-zinc-400">
-            Please enter your information and we'll contact you as soon as
-            possible.
+            Discover the solar power potential of your home with just your
+            address. Enter your information below and let us help you unlock the
+            power of the sun!
           </p>
         </div>
         <form action={saveAddress} className="space-y-4">
@@ -149,7 +150,6 @@ const { data: lead, error } = await supabase
               // placeholder="Enter your address"
               required
               type="number"
-
             />
           </div>
           <div className="space-y-2">
@@ -219,9 +219,7 @@ const { data: lead, error } = await supabase
               </div>
             </RadioGroup>
           </div>
-          <SubmitButton>
-            Submit
-          </SubmitButton>
+          <SubmitButton>Submit</SubmitButton>
         </form>
       </div>
       <div>
