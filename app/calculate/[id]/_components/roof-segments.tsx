@@ -115,7 +115,11 @@ const RoofSegments = ({
           <SelectContent>
             <ScrollArea className="h-[400px] w-full">
               {configs.map((config, index) => (
-                <SelectItem onChange={() => setSelectedConfigIndex(Number(index))} key={index} value={index.toString()}>
+                <SelectItem
+                  onChange={() => setSelectedConfigIndex(Number(index))}
+                  key={index}
+                  value={index.toString()}
+                >
                   {config.panelsCount} Solar Panels
                 </SelectItem>
               ))}
@@ -127,31 +131,35 @@ const RoofSegments = ({
       <h3>
         This configuration would provide a total of{" "}
         {configs[selectedConfigIndex].yearlyEnergyDcKwh.toFixed(2)} kWh/year
-        kWh/year from{" "}
-        {configs[selectedConfigIndex].panelsCount} solar panels.
+        kWh/year from {configs[selectedConfigIndex].panelsCount} solar panels.
       </h3>
-
       <div className="grid grid-cols-2 gap-8">
-        {configs[selectedConfigIndex].roofSegmentSummaries.map((item, index) => (
-          <div className="w-full rounded-lg bg-white p-4">
-            <h3 className="text-lg font-semibold flex items-center space-x-2">
-              Roof Segment Direction: {getDirection(item.azimuthDegrees)}
-              <CompassIcon className="ml-2 h-6 w-6" />
-            </h3>
-            <p className="text-lg font-medium flex items-center space-x-2">
-              Area: {roofSegments[item.segmentIndex].stats.areaMeters2} m<sup>2</sup>
-              <AreaChartIcon className="ml-2 h-6 w-6" />
-            </p>
-            <p className="text-lg font-medium flex items-center space-x-2">
-              Roof Segment Pitch: {item.pitchDegrees.toFixed(2)} <sup>o</sup>
-              <TriangleIcon className="ml-2 h-6 w-6" />
-            </p>
-            <p className="text-lg font-medium flex items-center space-x-2">
-              Panels: {item.panelsCount}
-              <Grid3X3 className="ml-2 h-6 w-6" />
-            </p>
-          </div>
-        ))}
+        {configs[selectedConfigIndex].roofSegmentSummaries.map(
+          (item, index) => (
+            <div className="w-full rounded-lg bg-white p-4">
+              <h3 className="text-2xl my-2 font-semibold">
+                Output {item.yearlyEnergyDcKwh.toFixed(2)} kWh/year
+              </h3>{" "}
+              <p className="text-lg font-medium flex items-center space-x-2">
+                Panels: {item.panelsCount}
+                <Grid3X3 className="ml-2 h-6 w-6" />
+              </p>
+              <p className="text-lg font-semibold flex items-center space-x-2">
+                Roof Segment Direction: {getDirection(item.azimuthDegrees)}
+                <CompassIcon className="ml-2 h-6 w-6" />
+              </p>
+              <p className="text-lg font-medium flex items-center space-x-2">
+                Area: {roofSegments[item.segmentIndex].stats.areaMeters2} m
+                <sup>2</sup>
+                <AreaChartIcon className="ml-2 h-6 w-6" />
+              </p>
+              <p className="text-lg font-medium flex items-center space-x-2">
+                Roof Segment Pitch: {item.pitchDegrees.toFixed(2)} <sup>o</sup>
+                <TriangleIcon className="ml-2 h-6 w-6" />
+              </p>
+            </div>
+          )
+        )}
       </div>
     </div>
   );
