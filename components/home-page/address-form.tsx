@@ -82,11 +82,14 @@ const { data: lead, error } = await supabase
 
 
       if(addressError) {
-        throw new Error("Could not save address")
+        // throw new Error("Could not save address")
+        redirect(`/error`)
+
       }
 
       if(!addressResults) {
-        throw new Error("Could not save address")
+        // throw new Error("Could not save address")
+        redirect(`/error`)
       }
 
       redirect(`/calculate/${addressResults.id}`)
@@ -96,7 +99,7 @@ const { data: lead, error } = await supabase
   }
 
   return (
-    <div className="grid grid-cols-2 gap-6 py-10 mx-auto">
+    <div className="grid grid-cols-1 gap-6 py-10 mx-auto lg:grid-cols-2">
       <div className="space-y-6">
         <div className="space-y-2">
           <h1 className="text-3xl font-bold">Radiant Potential</h1>
@@ -165,16 +168,16 @@ const { data: lead, error } = await supabase
                 <RadioGroupItem
                   value="solar"
                   id="solar"
-                  className="peer sr-only"
+                  className="sr-only peer"
                 />
                 <Label
                   htmlFor="solar"
                   className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="flex space-x-2">
-                    <Grid3X3 className="mb-3 h-6 w-6" />
-                    <PlusIcon className="mb-3 h-6 w-6" />
-                    <UtilityPole className="mb-3 h-6 w-6" />
+                    <Grid3X3 className="w-6 h-6 mb-3" />
+                    <PlusIcon className="w-6 h-6 mb-3" />
+                    <UtilityPole className="w-6 h-6 mb-3" />
                   </span>
                   Solar Panels
                 </Label>
@@ -183,17 +186,17 @@ const { data: lead, error } = await supabase
                 <RadioGroupItem
                   value="hybrid"
                   id="hybrid"
-                  className="peer sr-only"
+                  className="sr-only peer"
                 />
                 <Label
                   htmlFor="hybrid"
                   className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="flex space-x-2">
-                    <UtilityPole className="mb-3 h-6 w-6" />
-                    <PlusIcon className="mb-3 h-6 w-6" />
-                    <Grid3X3 className="mb-3 h-6 w-6" />
-                    <BatteryChargingIcon className="mb-3 h-6 w-6 -rotate-90" />
+                    <UtilityPole className="w-6 h-6 mb-3" />
+                    <PlusIcon className="w-6 h-6 mb-3" />
+                    <Grid3X3 className="w-6 h-6 mb-3" />
+                    <BatteryChargingIcon className="w-6 h-6 mb-3 -rotate-90" />
                   </span>
                   Hybrid Solar
                 </Label>
@@ -202,17 +205,17 @@ const { data: lead, error } = await supabase
                 <RadioGroupItem
                   value="off-grid"
                   id="off-grid"
-                  className="peer sr-only"
+                  className="sr-only peer"
                 />
                 <Label
                   htmlFor="off-grid"
                   className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="flex space-x-2">
-                    <Grid3X3 className="mb-3 h-6 w-6" />
-                    <PlusIcon className="mb-3 h-6 w-6" />
-                    <BatteryChargingIcon className="mb-3 h-6 w-6 -rotate-90" />
-                    <BatteryChargingIcon className="mb-3 h-6 w-6 -rotate-90" />
+                    <Grid3X3 className="w-6 h-6 mb-3" />
+                    <PlusIcon className="w-6 h-6 mb-3" />
+                    <BatteryChargingIcon className="w-6 h-6 mb-3 -rotate-90" />
+                    <BatteryChargingIcon className="w-6 h-6 mb-3 -rotate-90" />
                   </span>
                   Full Off Grid
                 </Label>
