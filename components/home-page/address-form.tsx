@@ -15,12 +15,12 @@ const AddressForm = async () => {
   const saveAddress = async (formData:FormData) => {
     "use server"
 
-     const name = formData.get("name") as string;
-     const phone = formData.get("phone") as string;
+     const name = formData.get("name") as string || "";
+     const phone = formData.get("phone") as string || "";
      const address = formData.get("address") as string;
-     const email = formData.get("email") as string;
-     const installation = formData.get("installation") as string;
-     const electricity_bill = formData.get("electricity-bill") as string;
+     const email = formData.get("email") as string || "";
+     const installation = formData.get("installation") as string || "";
+     const electricity_bill = formData.get("electricity-bill") as string  || "";
 
     const cookieStore = cookies()
     const supabase = createClient(cookieStore)
@@ -112,30 +112,30 @@ const { data: lead, error } = await supabase
         </div>
         <form action={saveAddress} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="name">Name</Label>
+            {/* <Label htmlFor="name">Name</Label>
             <Input
               id="name"
               name="name"
               placeholder="Enter your name"
               type="text"
               required
-            />
-            <Label htmlFor="email">Email</Label>
+            /> */}
+            {/* <Label htmlFor="email">Email</Label>
             <Input
               id="email"
               name="email"
               placeholder="Enter your email"
               required
               type="email"
-            />
-            <Label htmlFor="phone">Phone Number</Label>
+            /> */}
+            {/* <Label htmlFor="phone">Phone Number</Label>
             <Input
               id="phone"
               name="phone"
               placeholder="Enter your phone number"
               required
               type="tel"
-            />
+            /> */}
           </div>
           <div className="space-y-2">
             <Label htmlFor="address">Address</Label>
