@@ -35,7 +35,7 @@ const Hero = ({ address }: HeroProps) => {
               </h1>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-white shadow-xl rounded-xl p-4">
+              {/* <div className="bg-white shadow-xl rounded-xl p-4">
                 <DollarSign className="w-8 h-8" />
                 <h2 className="text-2xl font-semibold mb-2">
                   Average Electricity Bill
@@ -43,7 +43,7 @@ const Hero = ({ address }: HeroProps) => {
                 <p className="text-3xl uppercase font-extrabold">
                   {formatCurrency(address.lead_id.electricity_bill)}
                 </p>
-              </div>
+              </div> */}
               <div className="bg-white shadow-xl rounded-xl p-4">
                 <Grid3X3Icon className="w-8 h-8" />
                 <h2 className="text-2xl font-semibold mb-2">
