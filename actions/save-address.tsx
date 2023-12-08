@@ -36,7 +36,7 @@ export const saveAddress = async (formData: FormData) => {
         name : "",
         email : "",
         phone : "",
-        address : "",
+        address : address,
         electricity_bill: 0,
         installation,
       },
