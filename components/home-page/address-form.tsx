@@ -109,6 +109,9 @@ const { data: lead, error } = await supabase
             address. Enter your information below and let us help you unlock the
             power of the sun!
           </p>
+          <p className="text-zinc-500 dark:text-zinc-400">
+          In South Africa the map coverage for solar data is limited to Johannesburg, Pretoria, Durban, East London, Gqeberha and Cape Town. Newer buildings may not also be included in the dataset
+          </p>
         </div>
         <form action={saveAddress} className="space-y-4">
           <div className="space-y-2">
