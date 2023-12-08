@@ -9,6 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { GeocodingResponse } from "@/interfaces";
 import { Battery, BatteryChargingIcon, Grid3X3, Home, Link2OffIcon, PlusIcon, UtilityPole } from "lucide-react";
 import SubmitButton from "../submit-button";
+import  Autocomplete  from "./autocomplete";
 
 const AddressForm = async () => {
 
@@ -110,7 +111,9 @@ const { data: lead, error } = await supabase
             power of the sun!
           </p>
           <p className="text-zinc-500 dark:text-zinc-400">
-          In South Africa the map coverage for solar data is limited to Johannesburg, Pretoria, Durban, East London, Gqeberha and Cape Town. Newer buildings may not also be included in the dataset
+            In South Africa the map coverage for solar data is limited to
+            Johannesburg, Pretoria, Durban, East London, Gqeberha and Cape Town.
+            Newer buildings may not also be included in the dataset
           </p>
         </div>
         <form action={saveAddress} className="space-y-4">
@@ -139,6 +142,7 @@ const { data: lead, error } = await supabase
               required
               type="tel"
             /> */}
+                {/* <Autocomplete /> */}
           </div>
           <div className="space-y-2">
             <Label htmlFor="address">Address</Label>
