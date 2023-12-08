@@ -68,7 +68,8 @@ const { data: lead, error } = await supabase
        .catch((err) => console.error(err));
 
       if (!response || response.status === "ZERO_RESULTS") {
-        throw new Error("Could not find location for the specified address.");
+        redirect(`/error`);
+        // throw new Error("Could not find location for the specified address.");
       }
 
       const data: GeocodingResponse = await response;
