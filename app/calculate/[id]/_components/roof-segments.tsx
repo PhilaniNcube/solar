@@ -9,11 +9,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AreaChartIcon, CheckCheckIcon, CompassIcon, Grid3X3, HomeIcon, TriangleIcon } from "lucide-react";
+import { AreaChartIcon, CheckCheckIcon, CompassIcon, Grid3X3, HomeIcon, MinusIcon, PlusIcon, TriangleIcon } from "lucide-react";
 import { useState } from "react";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Database } from "@/interfaces/supabase";
 import { Label } from "@/components/ui/label";
+import formatCurrency from "@/lib/format-currency";
+import { Button } from "@/components/ui/button";
+
+type Battery = Database['public']['Tables']['batteries']['Row'];
+type Inverter = Database['public']['Tables']['inverters']['Row'];
 
 type Configs = {
   panelsCount: number;
@@ -62,6 +67,8 @@ const RoofSegments = ({
   roofSegments,
   solarPanels,
   configs,
+  batteries,
+  inverters
 }: {
   roofSegments: RoofSegment[];
   solarPanels: SolarPanels;
@@ -69,6 +76,8 @@ const RoofSegments = ({
   solarCapacity: number;
   panelWidth: number;
   panelHeight: number;
+  inverters: Inverter[];
+  batteries: Battery[];
 }) => {
   const [selectedSegmentIndex, setSelectedSegmentIndex] = useState<number>(0);
 
@@ -79,6 +88,17 @@ const RoofSegments = ({
     solarPanels !== null
       ? solarPanels[selectedPanelsIndex].output / solarCapacity
       : 1;
+
+      const panelsPrice =
+        solarPanels[selectedPanelsIndex].price *
+        Math.ceil(
+          (panelHeight * panelWidth * configs[selectedConfigIndex].panelsCount) /
+            ((solarPanels[selectedPanelsIndex].height *
+              solarPanels[selectedPanelsIndex].width) /
+              1000000)
+        );
+
+        console.log(formatCurrency(panelsPrice));
 
       // console.log({panelWidth, panelHeight})
 
@@ -178,6 +198,32 @@ const RoofSegments = ({
         ).toFixed(2)}{" "}
         kWh/day
       </h3>
+      <div className="bg-white w-full mt-4 p-4 rounded-lg shadow-lg">
+        <h2 className="text-xl font-bold ">Selected Configuration Summary</h2>
+        <Separator className="my-2" />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="w-full bg-slate-100 p-4">
+            <h3 className="text-xl font-bold text-slate-800">Solar Panels</h3>
+            <p className="text-md font-medium flex items-center text-slate-700 space-x-2">
+              {solarPanels[selectedPanelsIndex].name} x{" "}
+              {Math.ceil(
+                (panelHeight *
+                  panelWidth *
+                  configs[selectedConfigIndex].panelsCount) /
+                  ((solarPanels[selectedPanelsIndex].height *
+                    solarPanels[selectedPanelsIndex].width) /
+                    1000000)
+              )}{" "}
+              = {formatCurrency(panelsPrice)}
+            </p>
+          </div>
+          <p className="text-md font-medium flex items-center text-slate-700 space-x-2">
+            The price of each solar panel is an estimate based on the latest
+            prices.
+          </p>
+        </div>
+
+      </div>
       <Separator className="my-3" />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {configs[selectedConfigIndex].roofSegmentSummaries.map(

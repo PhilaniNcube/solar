@@ -19,6 +19,9 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
 
    const {data:solarpanels, error} = await supabase.from("solar_panels").select('*').order("output", {ascending: true});
 
+   const {data:batteries, error:batteriesError} = await supabase.from("batteries").select('*').order("output", {ascending: true});
+   const {data:inverters, error:invertersError} = await supabase.from("inverters").select('*').order("output", {ascending: true});
+
 
 
      const solarData = await getSolarData(lat, lng);
@@ -48,6 +51,8 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
           solarCapacity={solarPotential.panelCapacityWatts}
           roofSegments={solarPotential.roofSegmentStats}
           solarPanels={solarpanels!}
+          inverters={inverters!}
+          batteries={batteries!}
           configs={solarPotential.solarPanelConfigs}
         />
       </div>

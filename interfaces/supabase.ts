@@ -9,6 +9,30 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      batteries: {
+        Row: {
+          created_at: string
+          id: number
+          name: string
+          capacity: number
+          price: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name: string
+          capacity: number
+          price: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          name?: string
+          capacity?: number
+          price?: number
+        }
+        Relationships: []
+      }
       geocoding: {
         Row: {
           created_at: string
@@ -141,6 +165,33 @@ export interface Database {
         }
         Relationships: []
       }
+      inverters: {
+        Row: {
+          created_at: string
+          id: number
+          name: string
+          phase: "single phase" | "three phase"
+          input: number
+          price: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          name: string
+          phase: "single phase" | "three phase"
+          input: number
+          price: number
+        }
+        Update: {
+          created_at?: string
+          id: number
+          name: string
+          phase?: "single phase" | "three phase"
+          input?: number
+          price?: number
+        }
+         Relationships: []
+      }
       solar_panels: {
         Row: {
           created_at: string
@@ -150,6 +201,7 @@ export interface Database {
           width: number
           height: number
           depth: number
+          price: number
         }
         Insert: {
           created_at?: string
@@ -159,6 +211,7 @@ export interface Database {
           width: number
           height: number
           depth: number
+          price: number
         }
         Update: {
           created_at?: string
@@ -168,6 +221,7 @@ export interface Database {
           width: number
           height: number
           depth: number
+          price: number
         }
       }
       leads: {
