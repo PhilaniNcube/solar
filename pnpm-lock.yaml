@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@googlemaps/js-api-loader':
+    specifier: ^1.16.2
+    version: 1.16.2
   '@next/third-parties':
     specifier: ^14.0.1
     version: 14.0.1(next@14.0.1)(react@18.2.0)

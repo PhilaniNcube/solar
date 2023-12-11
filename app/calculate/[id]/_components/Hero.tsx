@@ -4,6 +4,7 @@ import formatCurrency from "@/lib/format-currency";
 // @ts-ignore
 import { GoogleMapsEmbed } from "@next/third-parties/google";
 import { DollarSign, Grid3X3Icon } from "lucide-react";
+import Map from "./Map";
 
 type HeroProps = {
   address: Database['public']['Tables']['geocoding']['Row']
@@ -14,7 +15,8 @@ const Hero = ({ address }: HeroProps) => {
     <section className="w-full py-12">
       <div className="container px-4 md:px-6">
         <div className="grid gap-6 lg:grid-cols-2 lg:gap-12 xl:grid-cols-2">
-          <GoogleMapsEmbed
+          <Map lat={address.results[0].geometry.location.lat} lng={address.results[0].geometry.location.lng} />
+          {/* <GoogleMapsEmbed
             className="w-full aspect-video"
             style="width:100%;height:100%; aspect-ratio: 16/12;"
             allowfullscreen
@@ -27,7 +29,7 @@ const Hero = ({ address }: HeroProps) => {
             mode="place"
             mapType="satellite"
             q={`${address.results[0].formatted_address}`}
-          />
+          /> */}
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
               <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">

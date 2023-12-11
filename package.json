@@ -6,6 +6,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.2",
     "@next/third-parties": "^14.0.1",
     "@prisma/client": "^5.6.0",
     "@radix-ui/react-dialog": "^1.0.5",
