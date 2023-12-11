@@ -98,7 +98,7 @@ const AddressForm =  () => {
                 onChange: setValue,
               }}
             />
-            <Input type="hidden" name="address" value={value?.label} />
+            <Input required type="hidden" name="address" value={value?.label} />
           </div>
 
           <div className="space-y-2">

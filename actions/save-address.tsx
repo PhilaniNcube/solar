@@ -15,6 +15,8 @@ export const saveAddress = async (formData: FormData) => {
   const installation = (formData.get("installation") as string) || "";
   const electricity_bill = (formData.get("electricity-bill") as string) || "";
 
+
+
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
@@ -24,9 +26,11 @@ export const saveAddress = async (formData: FormData) => {
     typeof phone !== "string" ||
     typeof address !== "string" ||
     typeof email !== "string" ||
-    typeof installation !== "string"
+    typeof installation !== "string" ||
+    address === "" || address.length === 0
+
   ) {
-    throw new Error("Invalid data");
+    redirect("/error");
   }
 
   const { data: lead, error } = await supabase
