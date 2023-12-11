@@ -19,8 +19,8 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
 
    const {data:solarpanels, error} = await supabase.from("solar_panels").select('*').order("output", {ascending: true});
 
-   const {data:batteries, error:batteriesError} = await supabase.from("batteries").select('*').order("output", {ascending: true});
-   const {data:inverters, error:invertersError} = await supabase.from("inverters").select('*').order("output", {ascending: true});
+   const {data:batteries, error:batteriesError} = await supabase.from("batteries").select('*');
+   const {data:inverters, error:invertersError} = await supabase.from("inverters").select('*');
 
 
 

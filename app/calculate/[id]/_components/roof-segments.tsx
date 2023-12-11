@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AreaChartIcon, CheckCheckIcon, CompassIcon, Grid3X3, HomeIcon, MinusIcon, PlusIcon, TriangleIcon } from "lucide-react";
+import { AreaChartIcon, BatteryCharging, CheckCheckIcon, CompassIcon, CrossIcon, Grid3X3, HomeIcon, MinusIcon, PlusIcon, TriangleIcon, X } from "lucide-react";
 import { useState } from "react";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Database } from "@/interfaces/supabase";
@@ -100,7 +100,33 @@ const RoofSegments = ({
 
         console.log(formatCurrency(panelsPrice));
 
-      // console.log({panelWidth, panelHeight})
+        const selectedBattery = batteries[0]
+
+        const selectedInverter = inverters[0]
+
+        const [numBatteries, setNumBatteries] = useState(0)
+
+        // function to add batteries to the system
+        const addBattery = () => {
+          setNumBatteries(numBatteries + 1)
+        }
+
+        // function to remove batteries from the system
+        const removeBattery = () => {
+          setNumBatteries(numBatteries - 1)
+        }
+
+      // console.log({inverters, batteries})
+
+      const totalDailyCapacity = (
+        (configs[selectedConfigIndex].yearlyEnergyDcKwh / 365) *
+        solarOutputRatio
+      );
+
+
+      const maxBatteries = Math.ceil(totalDailyCapacity / selectedBattery.capacity);
+
+      console.log({maxBatteries})
 
   return (
     <div className="w-full mt-2">
@@ -133,60 +159,116 @@ const RoofSegments = ({
         ))}
       </div> */}
       <Separator className="my-3" />
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div>
-          <Label className="py-3">Select Solar Panel Brand</Label>
-          <Select
-            onValueChange={(value) => setSelectedPanelsIndex(Number(value))}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select Brand" />
-            </SelectTrigger>
-            <SelectContent>
-              <ScrollArea className="h-[400px] w-full">
-                {solarPanels.map((panels, index) => (
-                  <SelectItem
-                    onChange={() => setSelectedPanelsIndex(Number(index))}
-                    key={index}
-                    value={index.toString()}
-                  >
-                    {panels.name}
-                  </SelectItem>
-                ))}
-              </ScrollArea>
-            </SelectContent>
-          </Select>
-        </div>{" "}
-        <div>
-          <Label className="py-3">Select Solar Panel Array Area</Label>
-          <Select
-            onValueChange={(value) => setSelectedConfigIndex(Number(value))}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Solar Panel Array Size" />
-            </SelectTrigger>
-            <SelectContent>
-              <ScrollArea className="h-[400px] w-full">
-                {configs.map((config, index) => (
-                  <SelectItem
-                    onChange={() => setSelectedConfigIndex(Number(index))}
-                    key={index}
-                    value={index.toString()}
-                  >
-                    {(panelHeight * panelWidth * config.panelsCount).toFixed(2)}
-                    {""}m<sup>2</sup> {"~"} approx{" "}
-                    {Math.ceil(
-                      (panelHeight * panelWidth * config.panelsCount) /
-                        ((solarPanels[selectedPanelsIndex].height *
-                          solarPanels[selectedPanelsIndex].width) /
-                          1000000)
-                    )}{" "}
-                    solar panels
-                  </SelectItem>
-                ))}
-              </ScrollArea>
-            </SelectContent>
-          </Select>
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="flex flex-col gap-y-5">
+          <div>
+            <Label className="py-3">Select Solar Panel Brand</Label>
+            <Select
+              onValueChange={(value) => setSelectedPanelsIndex(Number(value))}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select Brand" />
+              </SelectTrigger>
+              <SelectContent>
+                <ScrollArea className="h-[400px] w-full">
+                  {solarPanels.map((panels, index) => (
+                    <SelectItem
+                      onChange={() => setSelectedPanelsIndex(Number(index))}
+                      key={index}
+                      value={index.toString()}
+                    >
+                      {panels.name}
+                    </SelectItem>
+                  ))}
+                </ScrollArea>
+              </SelectContent>
+            </Select>
+          </div>
+          <div>
+            <Label className="py-3">Select Solar Panel Array Area</Label>
+            <Select
+              onValueChange={(value) => setSelectedConfigIndex(Number(value))}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Solar Panel Array Size" />
+              </SelectTrigger>
+              <SelectContent>
+                <ScrollArea className="h-[400px] w-full">
+                  {configs.map((config, index) => (
+                    <SelectItem
+                      onChange={() => setSelectedConfigIndex(Number(index))}
+                      key={index}
+                      value={index.toString()}
+                    >
+                      {(panelHeight * panelWidth * config.panelsCount).toFixed(
+                        2
+                      )}
+                      {""}m<sup>2</sup> {"~"} approx{" "}
+                      {Math.ceil(
+                        (panelHeight * panelWidth * config.panelsCount) /
+                          ((solarPanels[selectedPanelsIndex].height *
+                            solarPanels[selectedPanelsIndex].width) /
+                            1000000)
+                      )}{" "}
+                      solar panels
+                    </SelectItem>
+                  ))}
+                </ScrollArea>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div className="w-full bg-white p-3 rounded-md shadow-md">
+          <Label className="text-2xl"> Battery Set Up</Label>
+          <div className="flex items-center">
+            <BatteryCharging className="h-20 w-20 -rotate-90" />
+            <X className="h-10 w-10" />
+            <div className="flex  space-x-4 items-center justify-center">
+              <Button
+                type="button"
+                size="sm"
+                className="bg-red-500"
+                disabled={numBatteries === 0}
+                onClick={removeBattery}
+              >
+                <MinusIcon className="h-6 w-6" />
+              </Button>
+              <p className="font-semibold text-3xl">{numBatteries}</p>
+              <Button
+                type="button"
+                className="bg-green-600"
+                size="sm"
+                onClick={addBattery}
+                disabled={numBatteries >= maxBatteries}
+              >
+                <PlusIcon className="h-6 w-6" />
+              </Button>
+            </div>
+          </div>
+          <div>
+            <p className="text-sm font-medium">
+              {selectedBattery.name} - {selectedBattery.capacity} kW <br />@
+              {formatCurrency(selectedBattery.price)} each
+            </p>
+            <Separator className="my-2" />
+            <h3 className="font-medium text-lg">
+              {formatCurrency(selectedBattery.price * numBatteries)} -{" "}
+              {(numBatteries * selectedBattery.capacity).toFixed(0)} kWh{" "}
+              <span className="text-xs">(in total battery storage)</span>
+            </h3>
+          </div>
+        </div>
+        <div className="w-full bg-white flex flex-col justify-between p-3 rounded-md shadow-md">
+          <div>
+            <Label className="text-2xl">Inverter</Label>
+            <h3 className="text-sm font-medium">
+              {selectedInverter.name} - {selectedInverter.phase}
+            </h3>
+            <Separator className="my-2" />
+          </div>
+          <h3 className="font-medium text-lg">
+            {formatCurrency(selectedInverter.price)}
+          </h3>
         </div>
       </div>{" "}
       <Separator className="my-3" />
@@ -222,7 +304,6 @@ const RoofSegments = ({
             prices.
           </p>
         </div>
-
       </div>
       <Separator className="my-3" />
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

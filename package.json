@@ -23,6 +23,7 @@
     "@supabase/supabase-js": "latest",
     "@upstash/ratelimit": "^0.4.4",
     "@vercel/kv": "^0.2.4",
+    "@vis.gl/react-google-maps": "^0.4.1",
     "autoprefixer": "10.4.15",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",

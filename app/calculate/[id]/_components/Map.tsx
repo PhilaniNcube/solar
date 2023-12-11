@@ -51,6 +51,6 @@ const Map = ({lat, lng}:{lat:number, lng:number}) => {
     initMap();
   }, []);
 
-  return <div ref={mapRef} className="w-full aspect-square"></div>;
+  return <div ref={mapRef} className="w-full aspect-video"></div>;
 };
 export default Map;
