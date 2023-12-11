@@ -30,7 +30,7 @@ export const saveAddress = async (formData: FormData) => {
     address === "" || address.length === 0
 
   ) {
-    redirect("/error");
+    redirect("/error?message=" + encodeURIComponent("but you gave an invalid address"));
   }
 
   const { data: lead, error } = await supabase
@@ -67,8 +67,13 @@ export const saveAddress = async (formData: FormData) => {
     .then((data) => data)
     .catch((err) => console.error(err));
 
-  if (!response || response.status === "ZERO_RESULTS") {
-    redirect(`/error`);
+  if (!response || response.status === "ZERO_RESULTS" || response.status === "INVALID_REQUEST") {
+    redirect(
+      `/error?message=` +
+        encodeURIComponent(
+          "we could not find a location or solar data for the specified address"
+        )
+    );
     // throw new Error("Could not find location for the specified address.");
   }
 

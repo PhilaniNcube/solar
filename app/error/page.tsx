@@ -5,7 +5,12 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-export default function Component() {
+export default function Component({searchParams}: {searchParams: {[key:string]: string | string[] | undefined}}) {
+
+  console.log({searchParams});
+
+  const message = searchParams.message ? searchParams.message : "No Solar Potential Found";
+
   return (
     <section className="w-full py-12 md:py-24 lg:py-32">
       <div className="container px-4 space-y-12 md:px-6">
@@ -15,8 +20,7 @@ export default function Component() {
               No Solar Potential Found
             </h2>
             <p className="max-w-[900px] text-zinc-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-zinc-400">
-              We're sorry, but we couldn't find any solar potential for the
-              provided address.
+              We're sorry, {message}
             </p>
           </div>
         </div>
