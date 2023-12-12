@@ -4,8 +4,8 @@ import Footer from '@/components/footer';
 
 
 export const metadata = {
-  title: 'Solar Potential',
-  description: 'Get some information about your home&apos;s solar potential',
+  title: 'Radiant Potential',
+  description: "Get some information about your home's solar potential",
 }
 
 export default function RootLayout({
