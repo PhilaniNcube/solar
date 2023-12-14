@@ -2,6 +2,7 @@
  * v0 by Vercel.
  * @see https://v0.dev/t/fElbX7UbmaW
  */
+import CoverageMap from "@/components/coverage-map";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
@@ -36,7 +37,6 @@ export default function Component({searchParams}: {searchParams: {[key:string]: 
             <p className="text-sm text-zinc-500 dark:text-zinc-400">
               Please check the address and try again.
             </p>{" "}
-
             <Link href="/">
               <Button className="mt-4" variant="outline">
                 Return
@@ -44,6 +44,9 @@ export default function Component({searchParams}: {searchParams: {[key:string]: 
             </Link>
           </div>
         </div>
+        {/* <div className="w-full">
+          <CoverageMap lat={-26.2041} lng={28.0473} />
+        </div> */}
       </div>
     </section>
   );
