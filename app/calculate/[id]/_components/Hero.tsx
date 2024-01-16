@@ -32,7 +32,7 @@ const Hero = ({ address }: HeroProps) => {
           /> */}
           <div className="flex flex-col justify-center space-y-4">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
+              <h1 className="text-xl lg:text-3xl font-bold tracking-tighter 2xl:text-4xl">
                 {address.results[0].formatted_address}
               </h1>
             </div>
@@ -51,7 +51,7 @@ const Hero = ({ address }: HeroProps) => {
                 <h2 className="text-2xl font-semibold mb-2">
                   Desired Solar System
                 </h2>
-                <p className="text-3xl uppercase font-extrabold">
+                <p className="text-2xl uppercase font-extrabold">
                   {address.lead_id.installation}
                 </p>
               </div>

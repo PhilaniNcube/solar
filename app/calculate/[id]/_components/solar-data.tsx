@@ -25,6 +25,9 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
 
 
      const solarData = await getSolarData(lat, lng);
+
+     console.log({solarData})
+
      const {
        imageryQuality,
        regionCode,
@@ -56,6 +59,7 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
           configs={solarPotential.solarPanelConfigs}
         />
       </div>
+
     </section>
   );
 };
