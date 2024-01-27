@@ -1,7 +1,8 @@
 "use client"
 import {useEffect, useRef} from "react";
-import {Loader} from "@googlemaps/js-api-loader";
+import {Loader,} from "@googlemaps/js-api-loader";
 import { DataResponse, RoofSegment } from "@/interfaces";
+
 
 const Map = ({
   lat,
@@ -30,6 +31,8 @@ const Map = ({
 
       const { DrawingManager } = await loader.importLibrary("drawing");
 
+      const {poly} = await loader.importLibrary("geometry");
+
       const position = {
         lat: lat,
         lng: lng,
@@ -52,6 +55,11 @@ const Map = ({
         position: position,
         map: map,
       });
+
+
+
+
+      const bounds = new google.maps.LatLngBounds({lat: lat, lng: lng});
 
       const drawingManager = new DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.MARKER,
@@ -80,6 +88,8 @@ const Map = ({
       });
 
       drawingManager.setMap(map);
+
+
     };
 
     initMap();
