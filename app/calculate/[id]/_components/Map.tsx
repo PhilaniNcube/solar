@@ -2,12 +2,14 @@
 import {useEffect, useRef} from "react";
 import {Loader,} from "@googlemaps/js-api-loader";
 import { DataResponse, RoofSegment } from "@/interfaces";
+import { Polygon } from "@react-google-maps/api";
 
 
 const Map = ({
   lat,
   lng,
   roofSegments,
+  selectedSegmentIndex,
 }: {
   lat: number;
   lng: number;
@@ -21,7 +23,7 @@ const Map = ({
       const loader = new Loader({
         apiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY!,
         version: "weekly",
-        libraries: ["places"],
+        libraries: ["places", "geometry", "visualization", "core"],
       });
 
       const { Map } = await loader.importLibrary("maps");
@@ -30,8 +32,6 @@ const Map = ({
       const { Marker } = await loader.importLibrary("marker");
 
       const { DrawingManager } = await loader.importLibrary("drawing");
-
-      const {poly} = await loader.importLibrary("geometry");
 
       const position = {
         lat: lat,
@@ -51,15 +51,30 @@ const Map = ({
 
       const map = new Map(mapRef.current as HTMLDivElement, mapOptions);
 
+      // const markers = roofSegments.map((segment) => {
+      //   return new Marker({
+      //     position: {
+      //       lat: segment.center.latitude,
+      //       lng: segment.center.longitude,
+      //     },
+      //     map: map,
+      //   });
+      // });
+
+      // const marker = new Marker({
+      //   position: position,
+      //   map: map,
+      // });
+
       const marker = new Marker({
-        position: position,
+        position: {
+          lat: roofSegments[selectedSegmentIndex].center.latitude,
+          lng: roofSegments[selectedSegmentIndex].center.longitude,
+        },
         map: map,
       });
 
-
-
-
-      const bounds = new google.maps.LatLngBounds({lat: lat, lng: lng});
+      const bounds = new google.maps.LatLngBounds({ lat: lat, lng: lng });
 
       const drawingManager = new DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.MARKER,
@@ -88,12 +103,10 @@ const Map = ({
       });
 
       drawingManager.setMap(map);
-
-
     };
 
     initMap();
-  }, []);
+  }, [selectedSegmentIndex]);
 
   return <div ref={mapRef} className="w-full aspect-video"></div>;
 };

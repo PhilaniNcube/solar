@@ -17,6 +17,7 @@ import { Label } from "@/components/ui/label";
 import formatCurrency from "@/lib/format-currency";
 import { Button } from "@/components/ui/button";
 import Map from "./Map";
+import { cn } from "@/lib/utils";
 
 type Battery = Database['public']['Tables']['batteries']['Row'];
 type Inverter = Database['public']['Tables']['inverters']['Row'];
@@ -93,10 +94,10 @@ const RoofSegments = ({
   inverters: Inverter[];
   batteries: Battery[];
 }) => {
-  const [selectedSegmentIndex, setSelectedSegmentIndex] = useState<number>(0);
 
   const [selectedConfigIndex, setSelectedConfigIndex] = useState<number>(0);
   const [selectedPanelsIndex, setSelectedPanelsIndex] = useState<number>(0);
+  const [selectedSegmentIndex, setSelectedSegmentIndex] = useState<number>(configs[selectedConfigIndex].roofSegmentSummaries[0].segmentIndex);
 
   const solarOutputRatio =
     solarPanels !== null
@@ -279,7 +280,7 @@ const RoofSegments = ({
           selectedSegmentIndex={selectedSegmentIndex}
         />
         <div className="w-full">
-          <h3 className="text-lg font-bold">
+          <h3 className="text-xl font-semibold">
             This configuration would provide a total of{" "}
             <span className="text-rose-700">
               {(
@@ -299,12 +300,19 @@ const RoofSegments = ({
               segments
             </p>
             <Separator className="my-2" />
+            <h3 className="mb-4 text-lg font-bold">Select Roof Section </h3>
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               {configs[selectedConfigIndex].roofSegmentSummaries.map(
                 (item, index) => (
                   <div
                     key={index}
-                    className="w-full p-4 text-lg font-semibold rounded-lg text-sky-50 bg-sky-700"
+                    className={cn(
+                      "w-full p-4 text-lg font-semibold rounded-lg text-sky-50 bg-sky-700 outline outline-offset-2",
+                      selectedSegmentIndex === item.segmentIndex
+                        ? " outline-sky-700"
+                        : "outline-transparent"
+                    )}
+                    onClick={() => setSelectedSegmentIndex(item.segmentIndex)}
                   >
                     <h3 className="">
                       Output{" "}
