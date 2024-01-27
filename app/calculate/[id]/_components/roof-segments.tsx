@@ -269,11 +269,15 @@ const RoofSegments = ({
             </div>
           </div>
         </div>
-
       </div>{" "}
       <Separator className="my-3" />
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-        <Map lat={center.latitude} lng={center.longitude} />
+        <Map
+          lat={center.latitude}
+          lng={center.longitude}
+          roofSegments={roofSegments}
+          selectedSegmentIndex={selectedSegmentIndex}
+        />
         <div className="w-full">
           <h3 className="text-lg font-bold">
             This configuration would provide a total of{" "}
@@ -289,7 +293,11 @@ const RoofSegments = ({
             <h2 className="text-xl font-bold ">
               Selected Configuration Summary
             </h2>
-            <p>Configuration will cover {configs[selectedConfigIndex].roofSegmentSummaries.length} segments</p>
+            <p>
+              Configuration will cover{" "}
+              {configs[selectedConfigIndex].roofSegmentSummaries.length}{" "}
+              segments
+            </p>
             <Separator className="my-2" />
             <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
               {configs[selectedConfigIndex].roofSegmentSummaries.map(
