@@ -49,6 +49,8 @@ const SolarData = async ({lat, lng}:SolarDataProps) => {
           {solarPotential.solarPanelConfigs.length}{" "}
         </p>
         <RoofSegments
+          boundingBox={boundingBox}
+          center={center}
           panelWidth={solarPotential.panelWidthMeters}
           panelHeight={solarPotential.panelHeightMeters}
           solarCapacity={solarPotential.panelCapacityWatts}
