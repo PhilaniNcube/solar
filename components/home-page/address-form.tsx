@@ -92,7 +92,7 @@ const AddressForm =  () => {
             /> */}
             <Label htmlFor="address">Enter Street Address</Label>
             <GooglePlacesAutocomplete
-              apiKey={process.env.NEXT_PUBLIC_MAPS_API_KEY!}
+              apiKey={process.env.NEXT_PUBLIC_MAPS_API_KEY}
               selectProps={{
                 value,
                 onChange: setValue,
@@ -131,9 +131,9 @@ const AddressForm =  () => {
                   className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="flex space-x-2">
-                    <Grid3X3 className="w-3 h-3 md:w-6 md:h-6 mb-3" />
-                    <PlusIcon className="w-3 h-3 md:w-6 md:h-6 mb-3" />
-                    <UtilityPole className="w-3 h-3 md:w-6 md:h-6 mb-3" />
+                    <Grid3X3 className="w-3 h-3 mb-3 md:w-6 md:h-6" />
+                    <PlusIcon className="w-3 h-3 mb-3 md:w-6 md:h-6" />
+                    <UtilityPole className="w-3 h-3 mb-3 md:w-6 md:h-6" />
                   </span>
                   Solar Panels
                 </Label>
@@ -149,10 +149,10 @@ const AddressForm =  () => {
                   className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="flex space-x-2">
-                    <UtilityPole className="w-3 h-3 md:w-6 md:h-6 mb-3" />
-                    <PlusIcon className="w-3 h-3 md:w-6 md:h-6 mb-3" />
-                    <Grid3X3 className="w-3 h-3 md:w-6 md:h-6 mb-3" />
-                    <BatteryChargingIcon className="w-3 h-3 md:w-6 md:h-6 mb-3 -rotate-90" />
+                    <UtilityPole className="w-3 h-3 mb-3 md:w-6 md:h-6" />
+                    <PlusIcon className="w-3 h-3 mb-3 md:w-6 md:h-6" />
+                    <Grid3X3 className="w-3 h-3 mb-3 md:w-6 md:h-6" />
+                    <BatteryChargingIcon className="w-3 h-3 mb-3 -rotate-90 md:w-6 md:h-6" />
                   </span>
                   Hybrid Solar
                 </Label>
@@ -168,10 +168,10 @@ const AddressForm =  () => {
                   className="flex flex-col items-center justify-between rounded-md border-2 border-muted bg-popover p-4 hover:bg-accent hover:text-accent-foreground peer-data-[state=checked]:border-primary [&:has([data-state=checked])]:border-primary"
                 >
                   <span className="flex space-x-2">
-                    <Grid3X3 className="w-3 h-3 md:w-6 md:h-6 mb-3" />
-                    <PlusIcon className="w-3 h-3 md:w-6 md:h-6 mb-3" />
-                    <BatteryChargingIcon className="w-3 h-3 md:w-6 md:h-6 mb-3 -rotate-90" />
-                    <BatteryChargingIcon className="w-3 h-3 md:w-6 md:h-6 mb-3 -rotate-90" />
+                    <Grid3X3 className="w-3 h-3 mb-3 md:w-6 md:h-6" />
+                    <PlusIcon className="w-3 h-3 mb-3 md:w-6 md:h-6" />
+                    <BatteryChargingIcon className="w-3 h-3 mb-3 -rotate-90 md:w-6 md:h-6" />
+                    <BatteryChargingIcon className="w-3 h-3 mb-3 -rotate-90 md:w-6 md:h-6" />
                   </span>
                   Full Off Grid
                 </Label>

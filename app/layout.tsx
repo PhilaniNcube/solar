@@ -2,6 +2,7 @@ import Navbar from '@/components/navigation/navbar';
 import './globals.css'
 import Footer from '@/components/footer';
 import { Metadata } from 'next';
+import { GoogleTagManager } from "@next/third-parties/google";
 
 
 export const metadata:Metadata = {
@@ -25,14 +26,13 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
-      <body className="text-foreground min-h-screen flex flex-col">
-        <Navbar />
-        <div className="flex-1">
-        {children}
-        </div>
-        <Footer />
-      </body>
-    </html>
-  );
+			<html lang="en">
+				<body className="flex flex-col min-h-screen text-foreground">
+					<Navbar />
+					<div className="flex-1">{children}</div>
+					<Footer />
+				</body>
+				<GoogleTagManager gtmId="GTM-PD22QM48" />
+			</html>
+		);
 }
