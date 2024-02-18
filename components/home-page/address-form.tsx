@@ -52,7 +52,7 @@ const AddressForm =  () => {
     <div className="grid grid-cols-1 gap-6 py-10 mx-auto lg:grid-cols-2">
       <div className="space-y-6">
         <div className="space-y-2">
-          <h1 className="text-3xl font-bold">Radiant Potential</h1>
+          <h1 className="text-3xl font-bold">Prime Solar</h1>
           <p className="text-zinc-500 dark:text-zinc-400">
             Discover the solar power potential of your home with just your
             address. Enter your information below and let us help you unlock the

@@ -6,7 +6,7 @@ const Navbar = () => {
     <header className="shadow-lg py-3 bg-white z-50">
       <div className="container flex justify-between items-center">
         <Link href="/" className="text-2xl font-bold text-blue-500">
-          Radiant Potential
+          Prime Solar
         </Link>
         <Link href="/">
           <Button>Get Solar Info</Button>
